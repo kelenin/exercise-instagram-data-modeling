@@ -29,9 +29,9 @@ class Ciudad(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
+class User(Base):
+    __tablename__ = 'users'
+    # Here we define columns for the table users
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
@@ -45,8 +45,8 @@ class Noticias(Base):
     # Here we define columns for the table noticias
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    users_id = Column(Integer, ForeignKey('users.id'))
+    users = relationship(User)
     fecha = Column(Date, nullable=False , unique=True)
 
 class Ubicacions(Base):
@@ -69,9 +69,9 @@ class Seguidor(Base):
     # Here we define columns for the table seguidor
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    person_from = Column(Integer, ForeignKey('person.id'))
-    person_to = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    users_from = Column(Integer, ForeignKey('users.id'))
+    users_to = Column(Integer, ForeignKey('users.id'))
+    users = relationship(User)
 
 class Comentarios(Base):
     __tablename__ = 'comentarios'
@@ -79,8 +79,8 @@ class Comentarios(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=True)
-    person_from = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    users_from = Column(Integer, ForeignKey('users.id'))
+    users = relationship(User)
     noticias_from = Column(Integer, ForeignKey('noticias.id'))
     noticias = relationship(Noticias)
     name_modif = Column(String(250), nullable=True)
@@ -94,8 +94,8 @@ class Estadisticas(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name_like = Column(Numeric, nullable=True)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    users_id = Column(Integer, ForeignKey('users.id'))
+    users = relationship(User)
     noticias_id = Column(Integer, ForeignKey('noticias.id'))
     noticias = relationship(Noticias)
     seguidor_id = Column(Integer, ForeignKey('seguidor.id'))
@@ -110,8 +110,8 @@ class Address(Base):
     street_name = Column(String(250))
     street_number = Column(String(250))
     post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    users_id = Column(Integer, ForeignKey('users.id'))
+    users = relationship(User)
 
     def to_dict(self):
         return {}
